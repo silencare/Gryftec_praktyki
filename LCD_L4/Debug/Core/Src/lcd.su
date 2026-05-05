@@ -1,0 +1,8 @@
+../Core/Src/lcd.c:31:13:lcd_cmd	16	static
+../Core/Src/lcd.c:40:13:lcd_data	16	static
+../Core/Src/lcd.c:51:13:lcd_send	16	static
+../Core/Src/lcd.c:83:6:lcd_init	16	static
+../Core/Src/lcd.c:105:13:lcd_data16	16	static
+../Core/Src/lcd.c:115:13:lcd_set_window	24	static
+../Core/Src/lcd.c:128:6:lcd_put_pixel	24	static
+../Core/Src/lcd.c:134:6:lcd_copy	8	static
