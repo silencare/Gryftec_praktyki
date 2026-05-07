@@ -44,20 +44,21 @@
 #include "../../../Drivers/BSP/STM32746G-Discovery/stm32746g_discovery.h"
 #include "../../../Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_lcd.h"
 #include "../../../Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_ts.h"
+#include "../../../Game/Inc/game.h"
 #include <stdlib.h>
 #include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef struct{
-	float x,y;
-	float vx, vy;
-	uint16_t radius;
-	int is_cut;
-	int active;
-	uint32_t color;
-} Fruit;
+//typedef struct{
+//	float x,y;
+//	float vx, vy;
+//	uint16_t radius;
+//	int is_cut;
+//	int active;
+//	uint32_t color;
+//} Fruit;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -69,7 +70,7 @@ typedef struct{
 
 #define MAX_FRUITS 5
 #define GRAVITY 0.25f
-Fruit fruits[MAX_FRUITS];
+//Fruit fruits[MAX_FRUITS];
 
 /* USER CODE END PD */
 
@@ -96,88 +97,85 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-char bufor[32];
-volatile int points = 0;
-
-void Update_Physic(){
-	for (int i = 0; i < MAX_FRUITS; i++){
-		if (!fruits[i].active)
-			continue;
-
-		fruits[i].x += fruits[i].vx;
-		fruits[i].y += fruits[i].vy;
-		fruits[i].vy += GRAVITY;
-
-		if (fruits[i].x - fruits[i].radius <= 0) {
-			fruits[i].x = fruits[i].radius;
-			fruits[i].vx = -fruits[i].vx;
-		} else if (fruits[i].x + fruits[i].radius >= BSP_LCD_GetXSize()){
-			fruits[i].x = BSP_LCD_GetXSize() - fruits[i].radius;
-			fruits[i].vx = -fruits[i].vx;
-		}
-
-		if (fruits[i].y - fruits[i].radius < 0){
-			fruits[i].y = fruits[i].radius;
-			fruits[i].vy = -fruits[i].vy * 0.8f;
-		}
-		if (fruits[i].y > BSP_LCD_GetYSize() + 50){
-			fruits[i].active = 0;
-		}
-	}
-
-}
-
-void Touch(){
-	TS_StateTypeDef tsState;
-	BSP_TS_GetState(&tsState);
-
-	if(tsState.touchDetected){
-		uint16_t tx = tsState.touchX[0];
-		uint16_t ty = tsState.touchY[0];
-
-		for(int i = 0; i < MAX_FRUITS; i++){
-			if(fruits[i].active && !fruits[i].is_cut){
-				float dx = tx - fruits[i].x;
-				float dy = ty - fruits[i].y;
-				if((dx*dx+dy*dy)< (fruits[i].radius * fruits[i].radius)){
-					fruits[i].is_cut = 1;
-					fruits[i].vy = 2;
-					points++;
-				}
-			}
-		}
-
-	}
-
-}
-
-
-void Draw_Frame(){
-	BSP_LCD_Clear(LCD_COLOR_BLACK);
-	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-	BSP_LCD_DisplayStringAt(0, 0, (uint8_t*)bufor, LEFT_MODE);
-	for(int i = 0; i < MAX_FRUITS; i++){
-		if (!fruits[i].active) continue;
-		BSP_LCD_SetTextColor(fruits[i].color);
-		if(fruits[i].is_cut){
-			BSP_LCD_FillCircle(fruits[i].x - 15, fruits[i].y, fruits[i].radius*0.7f);
-			BSP_LCD_FillCircle(fruits[i].x + 15, fruits[i].y, fruits[i].radius*0.7f);
-		}else{
-			BSP_LCD_FillCircle(fruits[i].x, fruits[i].y, fruits[i].radius);
-		}
-	}
-}
-
-void Spawn_Fruit(Fruit *f){
-	f->x = rand() % (SCR_WIDTH - 40) + 20;
-	f->y = 240;
-	f->vx = (rand() % 4 - 2);
-	f->vy = -(rand() % 10 + 5);
-	f->radius = 20;
-	f->is_cut = 0;
-	f->active = 1;
-	f-> color = LCD_COLOR_ORANGE;
-}
+//void Update_Physic(){
+//	for (int i = 0; i < MAX_FRUITS; i++){
+//		if (!fruits[i].active)
+//			continue;
+//
+//		fruits[i].x += fruits[i].vx;
+//		fruits[i].y += fruits[i].vy;
+//		fruits[i].vy += GRAVITY;
+//
+//		if (fruits[i].x - fruits[i].radius <= 0) {
+//			fruits[i].x = fruits[i].radius;
+//			fruits[i].vx = -fruits[i].vx;
+//		} else if (fruits[i].x + fruits[i].radius >= BSP_LCD_GetXSize()){
+//			fruits[i].x = BSP_LCD_GetXSize() - fruits[i].radius;
+//			fruits[i].vx = -fruits[i].vx;
+//		}
+//
+//		if (fruits[i].y - fruits[i].radius < 0){
+//			fruits[i].y = fruits[i].radius;
+//			fruits[i].vy = -fruits[i].vy * 0.8f;
+//		}
+//		if (fruits[i].y > BSP_LCD_GetYSize() + 50){
+//			fruits[i].active = 0;
+//		}
+//	}
+//
+//}
+//
+//void Touch(){
+//	TS_StateTypeDef tsState;
+//	BSP_TS_GetState(&tsState);
+//
+//	if(tsState.touchDetected){
+//		uint16_t tx = tsState.touchX[0];
+//		uint16_t ty = tsState.touchY[0];
+//
+//		for(int i = 0; i < MAX_FRUITS; i++){
+//			if(fruits[i].active && !fruits[i].is_cut){
+//				float dx = tx - fruits[i].x;
+//				float dy = ty - fruits[i].y;
+//				if((dx*dx+dy*dy)< (fruits[i].radius * fruits[i].radius)){
+//					fruits[i].is_cut = 1;
+//					fruits[i].vy = 2;
+//					points++;
+//				}
+//			}
+//		}
+//
+//	}
+//
+//}
+//
+//
+//void Draw_Frame(){
+//	BSP_LCD_Clear(LCD_COLOR_BLACK);
+//	BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+//	BSP_LCD_DisplayStringAt(0, 0, (uint8_t*)bufor, LEFT_MODE);
+//	for(int i = 0; i < MAX_FRUITS; i++){
+//		if (!fruits[i].active) continue;
+//		BSP_LCD_SetTextColor(fruits[i].color);
+//		if(fruits[i].is_cut){
+//			BSP_LCD_FillCircle(fruits[i].x - 15, fruits[i].y, fruits[i].radius*0.7f);
+//			BSP_LCD_FillCircle(fruits[i].x + 15, fruits[i].y, fruits[i].radius*0.7f);
+//		}else{
+//			BSP_LCD_FillCircle(fruits[i].x, fruits[i].y, fruits[i].radius);
+//		}
+//	}
+//}
+//
+//void Spawn_Fruit(Fruit *f){
+//	f->x = rand() % (SCR_WIDTH - 40) + 20;
+//	f->y = 240;
+//	f->vx = (rand() % 4 - 2);
+//	f->vy = -(rand() % 10 + 5);
+//	f->radius = 20;
+//	f->is_cut = 0;
+//	f->active = 1;
+//	f-> color = LCD_COLOR_ORANGE;
+//}
 
 /* USER CODE END 0 */
 
@@ -242,6 +240,7 @@ int main(void)
 
   uint32_t* pxScreenBuffer = SCR_BUFFER_0;
 
+  srand(HAL_GetTick());
   BSP_LCD_Init();
   BSP_TS_Init(272, 480);
   BSP_LCD_LayerDefaultInit(LTDC_ACTIVE_LAYER, (uint32_t)SCR_BUFFER_0);
@@ -253,13 +252,17 @@ int main(void)
   BSP_LCD_FillRect(0,0,SCR_WIDTH, SCR_HEIGHT);
   BSP_LCD_DisplayStringAt(0, 240 - 65, (uint8_t *)"Ninja Fruit", CENTER_MODE);
   HAL_Delay(2000);
-  BSP_LCD_FillRect(0,0,SCR_WIDTH, SCR_HEIGHT);
+  BSP_LCD_Clear(LCD_COLOR_BLACK);
 
   TS_StateTypeDef tsState;
 
   for(int i=0;i<MAX_FRUITS;i++){
       fruits[i].active = 0;
   }
+
+  xTaskCreate(GameTaskStart, "FruitNinja", 256, NULL, 5, NULL);
+  vTaskStartScheduler();
+
   //xTaskCreate(TouchScreenTaskStart, "Touch screen", 256, NULL, 6, NULL);
   //HAL_Delay(1000);
   //BSP_LCD_Clear(LCD_COLOR_BLUE);
@@ -280,22 +283,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	  Touch();
-	  Update_Physic();
-	  Draw_Frame();
 
-	  static uint32_t last_tick = 0;
-	  if (HAL_GetTick() - last_tick > 1500){
-		  for(int i=0; i<MAX_FRUITS; i++){
-			  if(!fruits[i].active){
-				  Spawn_Fruit(&fruits[i]);
-				  break;
-			  }
-		  }
-		  last_tick = HAL_GetTick();
-	  }
-	  sprintf(bufor, "Points: %d", points);
-	  HAL_Delay(20);
 
 
     /* USER CODE BEGIN 3 */

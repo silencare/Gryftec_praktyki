@@ -62,6 +62,7 @@ Drivers/BSP/STM32746G-Discovery \
 Drivers/STM32F7xx_HAL_Driver/Src \
 FATFS/App \
 FATFS/Target \
+Game/Src \
 Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Src \
 Middlewares/ST/STM32_USB_Host_Library/Core/Src \
 Middlewares/Third_Party/FatFs/src \

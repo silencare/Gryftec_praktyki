@@ -1,0 +1,7 @@
+../Game/Src/game.c:15:6:Update_Physic	7
+../Game/Src/game.c:44:6:Touch	6
+../Game/Src/game.c:69:6:Draw_Frame	4
+../Game/Src/game.c:85:6:Clear_Frame	4
+../Game/Src/game.c:102:6:Spawn_Fruit	1
+../Game/Src/game.c:114:6:GameTaskStart	1
+../Game/Src/game.c:123:6:GameLoop	4

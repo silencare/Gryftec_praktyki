@@ -101,6 +101,7 @@
 "./FATFS/Target/bsp_driver_sd.o"
 "./FATFS/Target/fatfs_platform.o"
 "./FATFS/Target/sd_diskio.o"
+"./Game/Src/game.o"
 "./Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Src/usbh_cdc.o"
 "./Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.o"
 "./Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_ctlreq.o"
